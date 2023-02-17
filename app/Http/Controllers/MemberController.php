@@ -61,6 +61,7 @@ class MemberController extends Controller
     public function show($id)
     {
         //
+        return Member::find($id);
     }
 
     /**
@@ -84,7 +85,7 @@ class MemberController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $member = Member::find($request->id);
+        $member = Member::find($id);
         $member->name = $request->name;
         $member->email= $request->email;
         $member->address= $request->address;
@@ -106,5 +107,13 @@ class MemberController extends Controller
     public function destroy($id)
     {
         //
+        $member = Member::find($id);
+        $result = $member->delete();
+        if($result){
+            return ["Result"=>"Data has been deleted"];
+        }
+        else{
+            return ["Result"=>"Delete Operation failed"];
+        }
     }
 }
